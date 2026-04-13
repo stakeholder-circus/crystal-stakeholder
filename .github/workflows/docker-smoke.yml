@@ -1,0 +1,38 @@
+name: docker-smoke
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t crystal-stakeholder .
+      - run: docker run --rm crystal-stakeholder --list-values --output-format json > /tmp/list-values.json
+      - run: python3 - <<'PY'
+import json
+with open('/tmp/list-values.json', 'r', encoding='utf-8') as handle:
+    payload = json.load(handle)
+assert payload['count'] == 15
+assert any(item['family'] == 'code_analyzer' for item in payload['families'])
+PY
+      - run: docker run --rm crystal-stakeholder --focus-family code_analyzer --output-format json --seed docker-code > /tmp/code.json
+      - run: docker run --rm crystal-stakeholder --focus-family data_processing --output-format json --seed docker-data > /tmp/data.json
+      - run: docker run --rm crystal-stakeholder --focus-family agent_workflows --output-format json --seed docker-agent > /tmp/agent.json
+      - run: docker run --rm crystal-stakeholder --focus-family delivery_preview_ops --output-format json --seed docker-delivery > /tmp/delivery.json
+      - run: |
+          docker run --rm crystal-stakeholder --focus-family platform_engineering --output-format json --seed deterministic > /tmp/platform-a.json
+          docker run --rm crystal-stakeholder --focus-family platform_engineering --output-format json --seed deterministic > /tmp/platform-b.json
+          diff -u /tmp/platform-a.json /tmp/platform-b.json
+      - run: |
+          set +e
+          docker run --rm crystal-stakeholder --focus-family code_analyzer --experimental-provider openai > /tmp/provider-out.txt 2> /tmp/provider-err.txt
+          exit_code=$?
+          set -e
+          test "$exit_code" -eq 2
+          grep -q 'experimental-provider is not implemented yet in crystal-stakeholder: openai' /tmp/provider-err.txt

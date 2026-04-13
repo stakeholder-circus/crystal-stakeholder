@@ -1,0 +1,8 @@
+name: crystal_stakeholder
+version: 0.1.0
+crystal: ">= 1.12.0"
+license: MIT
+
+targets:
+  crystal-stakeholder:
+    main: src/crystal_stakeholder.cr

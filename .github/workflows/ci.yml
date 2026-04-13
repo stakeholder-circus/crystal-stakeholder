@@ -1,33 +1,26 @@
-name: ci
+name: ci-native
 
 on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   native:
-    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: crystallang/install-crystal@v1
+      - uses: actions/setup-python@v5
         with:
-          components: rustfmt, clippy
-      - name: Format
-        run: cargo fmt --check
-      - name: Lint
-        run: cargo clippy -- -D warnings
-      - name: Test
-        run: cargo test
-
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build image
-        run: docker build -t rust-stakeholder .
-      - name: Smoke test
-        run: docker run --rm rust-stakeholder --list-values
+          python-version: "3.12"
+      - run: python3 scripts/validate_scaffold.py
+      - run: crystal tool format --check src spec
+      - run: crystal build src/crystal_stakeholder.cr -o bin/crystal-stakeholder
+      - run: crystal spec

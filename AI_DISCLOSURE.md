@@ -2,8 +2,8 @@
 
 This repository is part of the stakeholder-circus rewrite program.
 
-- Repository: rust-stakeholder
-- Role: Canonical Rust source of truth and the only true public fork of giacomo-b/rust-stakeholder.
+- Repository: crystal-stakeholder
+- Role: Readable static-typed scripting rewrite with deterministic parity output.
 - Review model: Codex-assisted, manually reviewed, human in the loop
 - Contact: david@supan.si
 
@@ -15,6 +15,11 @@ Use these categories consistently:
 - ai-assisted
 - ai-drafted
 - code-generated
+
+## Authorship note
+
+This repo preserves the upstream MIT notice from `giacomo-b/rust-stakeholder`.
+Later rewrite work is AI-assisted and manually reviewed. Attribution, provenance, and the human-authorship boundary are tracked in repository docs rather than being overstated in the license file.
 
 ## Commit trailers
 

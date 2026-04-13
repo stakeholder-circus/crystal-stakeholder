@@ -1,11 +1,12 @@
-FROM rust:1-bookworm AS build
-WORKDIR /workspace
-COPY Cargo.toml Cargo.lock ./
-COPY src ./src
-RUN cargo test && cargo build --release
-
-FROM debian:bookworm-slim
+FROM crystallang/crystal:1.18.2 AS build
 WORKDIR /app
-COPY --from=build /workspace/target/release/rust-stakeholder /usr/local/bin/rust-stakeholder
-ENTRYPOINT ["rust-stakeholder"]
-CMD ["--list-values"]
+COPY shard.yml ./
+COPY src ./src
+COPY spec ./spec
+RUN crystal tool format --check src spec
+RUN crystal spec
+RUN crystal build src/crystal_stakeholder.cr --release --no-debug -o /opt/crystal-stakeholder
+
+FROM crystallang/crystal:1.18.2 AS runtime
+COPY --from=build /opt/crystal-stakeholder /usr/local/bin/crystal-stakeholder
+ENTRYPOINT ["crystal-stakeholder"]
