@@ -5,7 +5,7 @@
 
 ## Current explicit gaps
 - `crystal-stakeholder.post-modern-core-grouped-fallback`: `ai_governance`, `security_blockchain`, `health_protocol`, and `overlay_quantum` still use grouped fallback renderers instead of dedicated implementations.
-- `crystal-stakeholder.experimental-provider-runtime-pending`: live-provider adapters, encrypted local provider state, and browser/session import flows are not implemented in Crystal.
+- `crystal-stakeholder.experimental-provider-runtime-pending`: live-provider adapters, encrypted local provider state, and browser/session import flows remain open gaps in the full live-provider expansion lane.
 - `crystal-stakeholder.publication-held`: remote creation and first push stay blocked until the wider program reaches 10 validated new rewrites.
 - `crystal-stakeholder.codeql-activation-pending`: CodeQL activation is deferred until publication and supported-language scanning policy are finalized.
 

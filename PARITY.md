@@ -2,7 +2,7 @@
 
 ## Role
 
-Readable static-typed scripting rewrite for the wider matrix queue.
+Readable static-typed scripting rewrite for the wider matrix queue, validated locally and held for publication.
 
 ## Parity class
 

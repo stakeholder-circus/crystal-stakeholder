@@ -5,7 +5,7 @@
 Crystal rewrite under `stakeholder-circus`.
 
 ## Status
-- Local full rewrite tranche for `classic-six + modern-core`.
+- Validated wider-matrix repo held for publication.
 - Deterministic CLI, normalized JSON, Docker gate, and explicit fail-fast provider path are implemented.
 - Imported Rust history is preserved for attribution and auditability.
 - Publication remains blocked until the wider program reaches 10 validated new rewrites.

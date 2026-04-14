@@ -1,8 +1,8 @@
 # crystal-stakeholder Status
 
-Last updated: 2026-04-09 22:14 CEST
+Last updated: 2026-04-13 CEST
 
-- Role: `full-local-wider-matrix-rewrite`
+- Role: `validated-wider-matrix`
 - Parity class: `native-and-docker-validated-wider-matrix`
 - Phase target: `classic-six-plus-modern-core-local-tranche`
 - Phase state: `complete`
