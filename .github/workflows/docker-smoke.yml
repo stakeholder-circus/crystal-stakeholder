@@ -14,13 +14,14 @@ jobs:
       - uses: actions/checkout@v4
       - run: docker build -t crystal-stakeholder .
       - run: docker run --rm crystal-stakeholder --list-values --output-format json > /tmp/list-values.json
-      - run: python3 - <<'PY'
-import json
-with open('/tmp/list-values.json', 'r', encoding='utf-8') as handle:
-    payload = json.load(handle)
-assert payload['count'] == 15
-assert any(item['family'] == 'code_analyzer' for item in payload['families'])
-PY
+      - run: |
+          python3 - <<'PY'
+          import json
+          with open('/tmp/list-values.json', 'r', encoding='utf-8') as handle:
+              payload = json.load(handle)
+          assert payload['count'] == 15
+          assert any(item['family'] == 'code_analyzer' for item in payload['families'])
+          PY
       - run: docker run --rm crystal-stakeholder --focus-family code_analyzer --output-format json --seed docker-code > /tmp/code.json
       - run: docker run --rm crystal-stakeholder --focus-family data_processing --output-format json --seed docker-data > /tmp/data.json
       - run: docker run --rm crystal-stakeholder --focus-family agent_workflows --output-format json --seed docker-agent > /tmp/agent.json
