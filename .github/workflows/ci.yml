@@ -15,12 +15,13 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: crystallang/install-crystal@v1
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: crystal-lang/install-crystal@v1
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: python3 scripts/validate_scaffold.py
       - run: crystal tool format --check src spec
+      - run: mkdir -p bin
       - run: crystal build src/crystal_stakeholder.cr -o bin/crystal-stakeholder
       - run: crystal spec
