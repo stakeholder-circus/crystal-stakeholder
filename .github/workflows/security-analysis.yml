@@ -7,9 +7,6 @@ on:
       - '.github/workflows/**'
       - '.github/dependabot.yml'
   pull_request:
-    paths:
-      - '.github/workflows/**'
-      - '.github/dependabot.yml'
 
 permissions: {}
 
