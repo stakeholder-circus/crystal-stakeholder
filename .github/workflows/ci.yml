@@ -22,5 +22,6 @@ jobs:
           python-version: "3.12"
       - run: python3 scripts/validate_scaffold.py
       - run: crystal tool format --check src spec
+      - run: mkdir -p bin
       - run: crystal build src/crystal_stakeholder.cr -o bin/crystal-stakeholder
       - run: crystal spec
